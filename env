@@ -1,0 +1,23 @@
+# CORE
+OPENAI_API_KEY=sk-...
+OPENAI_MODEL=gpt-4o-mini
+OPENAI_AGENTS_ENABLED=true
+
+# Google Calendar (keep false for now unless you have credentials)
+GOOGLE_CAL_ENABLED=false
+GOOGLE_CLIENT_SECRETS=google_client_secret.json
+GOOGLE_TOKEN_DIR=./google_tokens
+
+# Observability
+LANGFUSE_API_KEY=
+LANGFUSE_API_URL=https://api.langfuse.com
+ARIZE_API_KEY=
+ARIZE_API_URL=
+
+# MCP integration toggle (optional; local wrapper present)
+MCP_SDK_ENABLED=false
+
+# App
+USE_AGENT=1
+HOST=0.0.0.0
+PORT=8000

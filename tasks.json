@@ -1,0 +1,35 @@
+[
+  {
+    "id": "11111111-1111-4111-8111-111111111111",
+    "title": "Investigate CAN bus anomaly",
+    "priority": 2,
+    "estimated_minutes": 90,
+    "status": "pending",
+    "start": null,
+    "end": null,
+    "pending_time": true,
+    "created_at": "2025-12-29T12:00:00Z"
+  },
+  {
+    "id": "22222222-2222-4222-8222-222222222222",
+    "title": "Brunch with friends",
+    "priority": 3,
+    "estimated_minutes": 60,
+    "status": "scheduled",
+    "start": "2025-12-30T14:00:00Z",
+    "end": "2025-12-30T15:00:00Z",
+    "pending_time": false,
+    "created_at": "2025-12-29T12:10:00Z"
+  },
+  {
+    "id": "86bfeb02-d61e-4314-bf21-3b26d0e26d8e",
+    "title": "meuseum visit",
+    "priority": 3,
+    "estimated_minutes": 60,
+    "status": "done",
+    "start": "2025-12-31T11:00:00",
+    "end": "2025-12-31T12:00:00",
+    "pending_time": false,
+    "created_at": "2025-12-29T19:01:59.773999"
+  }
+]

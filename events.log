@@ -1,0 +1,48 @@
+{"time": "2025-12-29T19:01:59.766189", "name": "user_input", "payload": {"user": "demo_user", "text": "add meuseum visit"}}
+{"time": "2025-12-29T19:01:59.776008", "name": "task_added", "payload": {"task": {"id": "86bfeb02-d61e-4314-bf21-3b26d0e26d8e", "title": "meuseum visit", "priority": 3, "estimated_minutes": 60, "status": "pending", "start": null, "end": null, "pending_time": true, "created_at": "2025-12-29T19:01:59.773999"}}}
+{"time": "2025-12-29T19:01:59.778022", "name": "task_added_pending_time", "payload": {"user": "demo_user", "task": {"id": "86bfeb02-d61e-4314-bf21-3b26d0e26d8e", "title": "meuseum visit", "priority": 3, "estimated_minutes": 60, "status": "pending", "start": null, "end": null, "pending_time": true, "created_at": "2025-12-29T19:01:59.773999"}}}
+{"time": "2025-12-29T19:02:27.651125", "name": "user_input", "payload": {"user": "demo_user", "text": "tommorow 11 am"}}
+{"time": "2025-12-29T19:02:29.695851", "name": "user_input", "payload": {"user": "demo_user", "text": "tommorow 11 am"}}
+{"time": "2025-12-29T19:03:09.541095", "name": "user_input", "payload": {"user": "demo_user", "text": "tommorow 11 am"}}
+{"time": "2025-12-29T19:03:13.389935", "name": "user_input", "payload": {"user": "demo_user", "text": "tommorow 11 am"}}
+{"time": "2025-12-29T19:03:44.168232", "name": "user_input", "payload": {"user": "demo_user", "text": "self reflect"}}
+{"time": "2025-12-29T19:03:45.793405", "name": "user_input", "payload": {"user": "demo_user", "text": "self reflect"}}
+{"time": "2025-12-29T19:04:04.898351", "name": "user_input", "payload": {"user": "demo_user", "text": "tomorrow 11 am"}}
+{"time": "2025-12-29T19:04:04.899356", "name": "task_scheduled", "payload": {"task_id": "86bfeb02-d61e-4314-bf21-3b26d0e26d8e", "start": "2025-12-31T11:00:00", "end": "2025-12-31T12:00:00", "task": {"id": "86bfeb02-d61e-4314-bf21-3b26d0e26d8e", "title": "meuseum visit", "priority": 3, "estimated_minutes": 60, "status": "scheduled", "start": "2025-12-31T11:00:00", "end": "2025-12-31T12:00:00", "pending_time": false, "created_at": "2025-12-29T19:01:59.773999"}}}
+{"time": "2025-12-29T19:04:04.900351", "name": "task_scheduled", "payload": {"user": "demo_user", "task_id": "86bfeb02-d61e-4314-bf21-3b26d0e26d8e", "start": "2025-12-31T11:00:00", "end": "2025-12-31T12:00:00"}}
+{"time": "2025-12-29T19:04:55.301797", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 11111111-1111-4111-8111-111111111111"}}
+{"time": "2025-12-29T19:05:03.539382", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:05:05.060229", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:05:35.929302", "name": "user_input", "payload": {"user": "demo_user", "text": "completed the meuseum visit"}}
+{"time": "2025-12-29T19:05:38.661977", "name": "user_input", "payload": {"user": "demo_user", "text": "completed the meuseum visit"}}
+{"time": "2025-12-29T19:05:44.677727", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:05:47.022976", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:05:49.665707", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:05:49.857016", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:05:50.055063", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:05:50.214517", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:05:50.414518", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:05:50.573623", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:05:50.776973", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:05:50.974309", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:05:51.134130", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:05:51.333455", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:05:51.510047", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:05:51.694024", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:05:51.931036", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:06:21.278774", "name": "user_input", "payload": {"user": "demo_user", "text": "reflect"}}
+{"time": "2025-12-29T19:06:22.887903", "name": "user_input", "payload": {"user": "demo_user", "text": "reflect"}}
+{"time": "2025-12-29T19:07:05.329216", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task meuseum visit"}}
+{"time": "2025-12-29T19:07:07.292355", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task meuseum visit"}}
+{"time": "2025-12-29T19:07:11.489746", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:07:13.353648", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:07:14.758546", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:07:16.542079", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:07:16.715616", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:07:16.935346", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:07:17.150210", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:08:27.436717", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task meuseum visit"}}
+{"time": "2025-12-29T19:09:52.817487", "name": "user_input", "payload": {"user": "demo_user", "text": "reflect"}}
+{"time": "2025-12-29T19:09:53.626250", "name": "user_input", "payload": {"user": "demo_user", "text": "reflect"}}
+{"time": "2025-12-29T19:09:57.013710", "name": "user_input", "payload": {"user": "demo_user", "text": "complete task 86bfeb02-d61e-4314-bf21-3b26d0e26d8e"}}
+{"time": "2025-12-29T19:09:57.021793", "name": "task_completed", "payload": {"task_id": "86bfeb02-d61e-4314-bf21-3b26d0e26d8e", "task": {"id": "86bfeb02-d61e-4314-bf21-3b26d0e26d8e", "title": "meuseum visit", "priority": 3, "estimated_minutes": 60, "status": "done", "start": "2025-12-31T11:00:00", "end": "2025-12-31T12:00:00", "pending_time": false, "created_at": "2025-12-29T19:01:59.773999"}}}
