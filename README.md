@@ -1,39 +1,76 @@
-# ai-planning-assistant
-AI Personal Productivity Assistant
-A smart AI assistant that helps you plan your day, manage tasks, and stay productive. Talk naturally, and let the AI handle scheduling, task management, and self-reflection.
+# AI Planning Assistant 
 
- #Features
+A lightweight AI-powered daily planning assistant built for hackathons.
+It helps users add tasks, get smart scheduling suggestions, and manage their day efficiently.
 
-Add Tasks – Quickly add tasks by typing what you need to do.
-Schedule Tasks – AI suggests optimal times and integrates your tasks into a schedule.
-Complete Tasks – Mark tasks as done directly from the interface.
-Task Overview – See pending and completed tasks at a glance.
-Self-Reflection – Get a summary of your productivity and focus next steps.
-Fast Response – Uses background scheduling for instant feedback while planning.
+---
 
- #Tech Stack
+## Features
+- Add tasks instantly
+- Smart task scheduling
+- Real-time updates
+- Simple UI
+- FastAPI backend + Streamlit frontend
 
-Backend: FastAPI for AI task management and scheduling.
-Frontend: Streamlit for a user-friendly interface.
-AI: Lightweight agent using NLP for task parsing and intent recognition.
-Memory: JSON-based local task memory.
-Scheduler: Background scheduling with planner integration.
+---
 
-#How It Works
+##  Tech Stack
+- Frontend: Streamlit
+- Backend: FastAPI
+- Language: Python
 
-User sends a command (e.g., “Add a meeting tomorrow at 10am”).
-AI parses the input, determines intent, and decides whether to:
-Add a task immediately
-Ask for missing time information
-Schedule the task in the background
+---
 
-Running the App
+##  Project Structure
+.
+├── app.py
+├── streamlit_app.py
+├── planner.py
+├── task_memory.py
+├── requirements.txt
+└── README.md
 
-Start the FastAPI backend:
-        uvicorn app:app --reload
-Open the Streamlit frontend:
-     streamlit run streamlit_app.py
+---
 
-Tasks are stored in memory and displayed in the Streamlit app.
+##  Setup Instructions
 
-AI can also perform self-reflection to summarize completed vs. pending tasks.
+### 1. Clone the repository
+git clone <repo-url>
+cd <project-folder>
+
+### 2. Create virtual environment
+python -m venv .venv
+
+Activate:
+Windows:
+.venv\Scripts\activate
+
+Mac/Linux:
+source .venv/bin/activate
+
+### 3. Install dependencies
+pip install -r requirements.txt
+
+---
+
+##  How to Run
+
+### Start backend
+uvicorn app:app --reload
+
+Backend runs at:
+http://127.0.0.1:8000
+
+### Start frontend (new terminal)
+streamlit run streamlit_app.py
+
+---
+
+## Usage
+1. Open the Streamlit app
+2. Add tasks
+3. Get AI scheduling
+4. Mark tasks complete
+
+---
+
