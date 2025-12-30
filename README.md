@@ -73,4 +73,5 @@ streamlit run streamlit_app.py
 4. Mark tasks complete
 
 ---
-
+## important 
+need to add an opennAi API key first 
