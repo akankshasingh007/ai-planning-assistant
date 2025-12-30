@@ -1,10 +1,4 @@
 
-"""
-planner.py
-
-Planner logic that coordinates TaskMemory and Calendar (real or mock) to schedule tasks.
-"""
-
 from datetime import datetime, timedelta
 import logging
 
@@ -12,10 +6,28 @@ logger = logging.getLogger("planner")
 logger.setLevel(logging.INFO)
 
 class Planner:
-    def __init__(self, calendar_client, memory, default_work_hours: dict = None):
+    def __init__(self, calendar_client, memory, default_work_hours: dict = None, scheduling_strategy: str = None, deep_work_minutes: int = None):
         self.calendar = calendar_client
         self.memory = memory
         self.default_work_hours = default_work_hours or {}
+        self.scheduling_strategy = scheduling_strategy or "after_lunch"
+        self.deep_work_minutes = deep_work_minutes or 60
+
+    def _choose_slot_by_strategy(self, user_id: str, earliest: datetime, duration_minutes: int):
+       
+        if self.scheduling_strategy == "earliest":
+            return earliest
+        if self.scheduling_strategy == "after_lunch":
+            candidate = earliest.replace(minute=0, second=0, microsecond=0)
+            if candidate.hour < 14:
+                candidate = candidate.replace(hour=14)
+            return candidate
+        if self.scheduling_strategy == "block_deep_work":
+            candidate = earliest.replace(minute=0, second=0, microsecond=0)
+            if candidate.hour < 9:
+                candidate = candidate.replace(hour=9)
+            return candidate
+        return earliest
 
     def schedule_task_from_parsed(self, user_id: str, parsed: dict):
         title = parsed.get("title") or "Focused work"
@@ -28,16 +40,14 @@ class Planner:
                 earliest = datetime.utcnow()
         else:
             earliest = datetime.utcnow()
-        # ensure in future
         if earliest < datetime.utcnow():
             earliest = datetime.utcnow()
 
-        # create memory task (store as pending until scheduled)
         task = self.memory.add_task(title, priority=int(parsed.get("priority", 3)), estimated_minutes=duration_minutes)
 
-        # find slot (calendar_client must implement find_free_slot)
         try:
-            slot_start = self.calendar.find_free_slot(user_id, earliest, duration_minutes)
+            after = self._choose_slot_by_strategy(user_id, earliest, duration_minutes)
+            slot_start = self.calendar.find_free_slot(user_id, after, duration_minutes)
         except Exception as e:
             logger.debug("Calendar find_free_slot failed: %s", e)
             slot_start = None
@@ -47,14 +57,11 @@ class Planner:
 
         slot_end = slot_start + timedelta(minutes=duration_minutes)
 
-        # Add event (calendar client add_event signature: user_id, title, start, end, metadata)
         try:
             ev = self.calendar.add_event(user_id, task.title, slot_start, slot_end, metadata={"task_id": task.id})
         except TypeError:
-            # some clients may accept (title, start, end)
             ev = self.calendar.add_event(task.title, slot_start, slot_end)
 
-        # Save ISO strings into memory (TaskMemory.schedule_task expects strings)
         self.memory.schedule_task(task.id, slot_start.isoformat(), slot_end.isoformat())
         logger.info(f"Scheduled {task.title} for {user_id} at {slot_start.isoformat()}")
         return {"task": task.to_dict(), "scheduled": True, "start": slot_start.isoformat(), "end": slot_end.isoformat()}

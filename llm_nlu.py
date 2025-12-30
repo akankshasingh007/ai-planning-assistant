@@ -1,6 +1,4 @@
-# llm_nlu.py
-# LLM-based NLU that turns natural-language goals into a structured JSON intent object.
-# Tries to use OpenAI if available and OPENAI_API_KEY is set; otherwise falls back to a local heuristic.
+
 import os
 import json
 import logging
@@ -10,7 +8,6 @@ from dateutil import parser as dateparser
 logger = logging.getLogger("llm_nlu")
 logger.setLevel(logging.INFO)
 
-# Try to import openai, but tolerate its absence so local runs work without it.
 OPENAI_AVAILABLE = True
 try:
     import openai
@@ -28,14 +25,11 @@ else:
         logger.info("OPENAI_API_KEY not set; will use heuristic fallback.")
     OPENAI_AVAILABLE = False
 
-# Keep a minimal fallback heuristic if LLM fails or isn't available
 def heuristic_parse_goal(text: str, ref: datetime = None):
-    # Import the local heuristic nlu parser if present
     try:
         from nlu import parse_goal as hparse
         return hparse(text, ref)
     except Exception:
-        # Minimal safe fallback in case nlu.py isn't present either
         ref = ref or datetime.utcnow()
         return {
             "intent": "add_task",
@@ -48,10 +42,7 @@ def heuristic_parse_goal(text: str, ref: datetime = None):
 SYSTEM_PROMPT = "You are a JSON-outputting parser. Return a compact JSON object with keys intent, title (optional), duration_minutes (optional), date (optional iso), estimated_minutes (optional), priority (optional), raw."
 
 def parse_goal(text: str, ref: datetime = None):
-    """
-    Parse the user's free-text goal into a dict.
-    Uses OpenAI if available and API key present; otherwise falls back to heuristics.
-    """
+   
     ref = ref or datetime.utcnow()
     if not OPENAI_AVAILABLE:
         return heuristic_parse_goal(text, ref)
@@ -67,7 +58,7 @@ def parse_goal(text: str, ref: datetime = None):
             max_tokens=300
         )
         content = completion["choices"][0]["message"]["content"]
-        # attempt to extract JSON from the model response
+    
         start = content.find("{")
         if start == -1:
             return heuristic_parse_goal(text, ref)

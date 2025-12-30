@@ -1,11 +1,3 @@
-"""
-observability.py
-
-Centralized observability: emits local events to events.log and optionally posts to
-Langfuse and (optionally) Arize Phoenix if credentials are set.
-
-All external sends are best-effort and will not raise on failure.
-"""
 
 import json
 import os
@@ -40,19 +32,16 @@ def emit_event(name: str, payload: dict):
         "name": name,
         "payload": payload
     }
-    # local write
+   
     _write_local(event)
 
-    # Langfuse (optional)
     if LANGFUSE_API_KEY and LANGFUSE_API_URL:
         try:
             headers = {"x-api-key": LANGFUSE_API_KEY, "Content-Type": "application/json"}
-            # This is a minimal Langfuse-like POST; real schemas may differ.
             requests.post(f"{LANGFUSE_API_URL}/events", headers=headers, json=event, timeout=2)
         except Exception as e:
             logger.debug("Langfuse emit failed: %s", e)
-
-    # Arize (optional) — minimal, best-effort. Replace with real SDK if available.
+            
     if ARIZE_API_KEY and ARIZE_API_URL:
         try:
             headers = {"Authorization": f"Bearer {ARIZE_API_KEY}", "Content-Type": "application/json"}

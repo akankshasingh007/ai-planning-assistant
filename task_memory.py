@@ -1,10 +1,21 @@
-# task_memory.py — Persistent task store (with observability emits)
-import json, os, uuid
+
+import json
+import os
+import uuid
+import re
 from datetime import datetime
 from typing import List, Optional, Dict
 from observability import emit_event
 
-DATA_FILE = "tasks.json"
+DATA_FILE = os.environ.get("TASKS_FILE", "data/tasks.json")
+
+def _normalize_title(title: str) -> str:
+    if not title:
+        return ""
+    t = title.strip().lower()
+    t = re.sub(r"[^\w\s'-]", "", t)
+    t = re.sub(r"\s+", " ", t)
+    return t
 
 class Task:
     def __init__(self, title: str, priority: int = 3, estimated_minutes: int = 60,
@@ -12,6 +23,7 @@ class Task:
                  pending_time: bool = False):
         self.id = str(uuid.uuid4())
         self.title = title
+        self._norm_title = _normalize_title(title)
         self.priority = priority
         self.estimated_minutes = estimated_minutes
         self.status = status
@@ -19,9 +31,12 @@ class Task:
         self.end = end
         self.pending_time = pending_time
         self.created_at = datetime.utcnow().isoformat()
+        self.deduped = False
 
     def to_dict(self) -> Dict:
-        return self.__dict__
+        d = self.__dict__.copy()
+        d.pop("_norm_title", None)
+        return d
 
 class TaskMemory:
     def __init__(self, file_path: str = DATA_FILE):
@@ -30,6 +45,9 @@ class TaskMemory:
         self._load()
 
     def _load(self):
+        d = os.path.dirname(self.file_path)
+        if d:
+            os.makedirs(d, exist_ok=True)
         if not os.path.exists(self.file_path):
             self._save()
             return
@@ -58,14 +76,38 @@ class TaskMemory:
         )
         task.id = data["id"]
         task.created_at = data.get("created_at")
+        task.deduped = data.get("deduped", False)
         return task
 
     def add_task(self, title: str, priority: int = 3, estimated_minutes: int = 60,
                  pending_time: bool = False) -> Task:
+       
+        DEDUP_WINDOW_SECONDS = int(os.environ.get("TASK_DEDUP_WINDOW_SECONDS", "120"))
+        now = datetime.utcnow()
+        norm = _normalize_title(title)
+
+        for t in self.tasks:
+            try:
+                created_at = datetime.fromisoformat(t.created_at) if isinstance(t.created_at, str) else None
+            except Exception:
+                created_at = None
+            if created_at:
+                age = (now - created_at).total_seconds()
+            else:
+                age = None
+   
+            if getattr(t, "_norm_title", _normalize_title(t.title)) == norm and t.pending_time == pending_time and (age is not None and age <= DEDUP_WINDOW_SECONDS):
+                try:
+                    emit_event("task_add_deduped", {"task_id": t.id, "title": title})
+                except Exception:
+                    pass
+                t.deduped = True
+                return t
+
         task = Task(title=title, priority=priority, estimated_minutes=estimated_minutes, pending_time=pending_time)
+        task.deduped = False
         self.tasks.append(task)
         self._save()
-        # Observability emit
         try:
             emit_event("task_added", {"task": task.to_dict()})
         except Exception:
@@ -82,10 +124,9 @@ class TaskMemory:
         return next((t for t in self.tasks if t.id == task_id), None)
 
     def schedule_task(self, task_id, start, end):
-        # Accept datetime objects or ISO strings
-        if isinstance(start, datetime):
+        if hasattr(start, "isoformat"):
             start = start.isoformat()
-        if isinstance(end, datetime):
+        if hasattr(end, "isoformat"):
             end = end.isoformat()
 
         if not isinstance(start, str) or not isinstance(end, str):
@@ -100,7 +141,6 @@ class TaskMemory:
         task.status = "scheduled"
         task.pending_time = False
         self._save()
-        # Observability emit
         try:
             emit_event("task_scheduled", {"task_id": task_id, "start": start, "end": end, "task": task.to_dict()})
         except Exception:
@@ -108,10 +148,10 @@ class TaskMemory:
 
     def complete_task(self, task_id: str):
         task = self.get_task(task_id)
-        if not task: raise ValueError("Task not found")
+        if not task:
+            raise ValueError("Task not found")
         task.status = "done"
         self._save()
-        # Observability emit
         try:
             emit_event("task_completed", {"task_id": task_id, "task": task.to_dict()})
         except Exception:
@@ -119,12 +159,12 @@ class TaskMemory:
 
     def update_task(self, task_id: str, updates: Dict):
         task = self.get_task(task_id)
-        if not task: raise ValueError("Task not found")
+        if not task:
+            raise ValueError("Task not found")
         for key, value in updates.items():
             if hasattr(task, key):
                 setattr(task, key, value)
         self._save()
-        # Observability emit
         try:
             emit_event("task_updated", {"task_id": task_id, "updates": updates, "task": task.to_dict()})
         except Exception:
